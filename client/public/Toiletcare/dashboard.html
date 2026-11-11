@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="id" data-auth="required">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - ToiletCare</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="session.js" defer></script>
+  </head>
+
+  <body>
+    <div class="page tc-dashboard">
+      <!-- HEADER -->
+      <header class="tc-header">
+        <h2>Halo, selamat datang!</h2>
+
+        <a
+          href="notifikasi.html"
+          class="tc-notification"
+          aria-label="Notifikasi"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+            <path d="M10 21h4" />
+          </svg>
+          <span class="tc-notification-count">2</span>
+        </a>
+      </header>
+
+      <!-- PROFIL ORANG TUA -->
+      <section class="tc-parent-profile">
+        <div class="tc-avatar">
+          <img src="./images/ikon-ibu.jpg" alt="Foto profil ibu" />
+        </div>
+
+        <div class="tc-profile-info">
+          <h3 data-user-name>Dewi Lestari</h3>
+          <p>Orang Tua</p>
+        </div>
+      </section>
+
+      <!-- PROFIL ANAK -->
+      <section class="tc-child-card">
+        <h3>Anak Anda</h3>
+
+        <div class="tc-child-profile">
+          <div class="tc-avatar tc-child-avatar">
+            <img src="./images/ikon-anak%20(1).jpg" alt="Foto profil Bagas" />
+          </div>
+
+          <div class="tc-profile-info">
+            <h3>Bagas</h3>
+            <p>Usia 8 tahun</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROGRESS TOILET TRAINING -->
+      <section class="tc-progress-card">
+        <h3>Progress Toilet Training</h3>
+
+        <div class="tc-progress-content">
+          <div class="tc-progress-ring">
+            <span>60%</span>
+          </div>
+
+          <div class="tc-progress-info">
+            <p>Tahapan yang sudah dikuasai</p>
+            <strong>6 dari 10 tahapan</strong>
+          </div>
+        </div>
+
+        <a href="detail-tahapan.html" class="tc-vr-button">
+          Mulai VR Training!
+        </a>
+      </section>
+
+      <!-- MENU NAVIGASI -->
+      <nav class="tc-menu-grid">
+        <!-- Riwayat -->
+        <a
+          href="riwayat-latihan.html"
+          class="tc-menu-item"
+          aria-label="Riwayat latihan"
+        >
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="17" />
+            <path d="M24 10v14h13" />
+          </svg>
+          <span>Riwayat latihan</span></a
+        >
+
+        <!-- Progress -->
+        <a href="progress.html" class="tc-menu-item" aria-label="Progress">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M9 39V27 M24 39V17 M39 39V6" />
+          </svg>
+          <span>Progress</span></a
+        >
+        <a
+          href="detail-tahapan.html"
+          class="tc-menu-item"
+          aria-label="Tahapan latihan"
+        >
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="6" y="14" width="36" height="23" rx="8" />
+            <circle cx="16" cy="25" r="5" />
+            <circle cx="32" cy="25" r="5" />
+            <path d="M14 14V9h20v5" />
+          </svg>
+          <span>Tahapan latihan</span></a
+        >
+
+        <!-- Hasil latihan -->
+        <a
+          href="hasil-latihan.html"
+          class="tc-menu-item"
+          aria-label="Hasil latihan"
+        >
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="11" y="10" width="26" height="32" rx="4" />
+            <path d="M18 10V6h12v4" />
+          </svg>
+          <span>Hasil latihan</span></a
+        >
+
+        <!-- Profil anak -->
+        <a
+          href="profil-anak.html"
+          class="tc-menu-item"
+          aria-label="Profil anak"
+        >
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="14" r="8" />
+            <path d="M9 41v-4a15 15 0 0 1 30 0v4" />
+          </svg>
+          <span>Profil anak</span></a
+        >
+
+        <!-- Pengaturan -->
+        <a href="pengaturan.html" class="tc-menu-item" aria-label="Pengaturan">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path
+              d="M20 5h8l1.5 5.5 4 2.3 5.4-1.5 4 7-4 4v5l4 4-4 7-5.4-1.5-4 2.3L28 45h-8l-1.5-5.5-4-2.3-5.4 1.5-4-7 4-4v-5l-4-4 4-7 5.4 1.5 4-2.3z"
+            />
+            <circle cx="24" cy="24" r="6" />
+          </svg>
+          <span>Pengaturan</span></a
+        >
+      </nav>
+    </div>
+  </body>
+</html>

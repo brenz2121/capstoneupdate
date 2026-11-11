@@ -1,0 +1,301 @@
+
+/* =====================================
+   1. RESET CSS
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =====================================
+   2. BACKGROUND BODY
+===================================== */
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 20px 10px;
+
+    background: #e9eeee;
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* =====================================
+   3. KOTAK UTAMA HALAMAN
+===================================== */
+
+.history-page {
+    width: 100%;
+    max-width: 430px;
+
+    min-height: auto;
+
+    margin: 0 auto;
+    padding: 25px 22px 30px;
+
+    background: #f3f8f8;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 15px rgba(0, 0, 0, 0.10),
+        0 8px 25px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* =====================================
+   4. HEADER
+===================================== */
+
+.history-header {
+    width: 100%;
+    height: 45px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 18px;
+}
+
+.history-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+}
+
+.back-button {
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    text-decoration: none;
+
+    color: #111;
+
+    font-size: 27px;
+    font-weight: bold;
+}
+
+/* =====================================
+   5. PILIH BULAN
+===================================== */
+
+.date-selector {
+    width: 100%;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 12px;
+
+    margin-bottom: 17px;
+
+    background: #ffffff;
+
+    border: 1px solid #eeeeee;
+    border-radius: 9px;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+
+    color: #13597c;
+}
+
+.date-icon {
+    font-size: 22px;
+    margin-right: 12px;
+}
+
+.date-text {
+    flex: 1;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.date-arrow {
+    font-size: 21px;
+    font-weight: bold;
+    color: #064e9e;
+}
+
+/* =====================================
+   6. KARTU RIWAYAT
+===================================== */
+
+.history-item {
+    width: 100%;
+    min-height: 65px;
+
+    padding: 9px 12px;
+
+    margin-bottom: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #ffffff;
+
+    border: 1px solid #eeeeee;
+    border-radius: 9px;
+
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+/* =====================================
+   7. INFORMASI TANGGAL
+===================================== */
+
+.history-date {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.history-date strong {
+    font-size: 13px;
+    font-weight: 700;
+
+    color: #13597c;
+}
+
+.history-date small {
+    font-size: 11px;
+    color: #888888;
+}
+
+/* =====================================
+   8. LINGKARAN PROGRESS RIWAYAT
+===================================== */
+
+.history-percent {
+    width: 43px;
+    height: 43px;
+    min-width: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    isolation: isolate;
+
+    border-radius: 50%;
+
+    background: conic-gradient(
+        from -90deg,
+        var(--progress-color) var(--progress),
+        #dedede var(--progress)
+    );
+
+    color: var(--progress-color);
+
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+
+    font-variant-numeric: tabular-nums;
+}
+
+/* Bagian tengah lingkaran */
+.history-percent::before {
+    content: "";
+
+    position: absolute;
+    inset: 5px;
+
+    border-radius: 50%;
+    background: #ffffff;
+
+    z-index: -1;
+}
+
+/* Progress hijau */
+.history-percent.green {
+    --progress: 85%;
+    --progress-color: #00833e;
+}
+
+/* Progress kuning */
+.history-percent.yellow {
+    --progress: 60%;
+    --progress-color: #b99b00;
+}
+
+/* Progress merah */
+.history-percent.red {
+    --progress-color: #ff4242;
+}
+
+.history-percent.red-40 {
+    --progress: 40%;
+}
+
+.history-percent.red-30 {
+    --progress: 30%;
+}
+
+.history-percent.red-10 {
+    --progress: 10%;
+}
+
+/* =====================================
+   9. RESPONSIVE HP
+===================================== */
+
+@media (max-width: 599px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .history-page {
+        width: 100%;
+        max-width: 100%;
+
+        padding: 22px 18px 25px;
+
+        border-radius: 18px;
+    }
+
+    .history-header {
+        margin-bottom: 15px;
+    }
+
+    .history-item {
+        min-height: 62px;
+        margin-bottom: 14px;
+    }
+
+}
+
+/* =====================================
+   10. RESPONSIVE DESKTOP
+===================================== */
+
+@media (min-width: 600px) {
+
+    .history-page {
+        max-width: 430px;
+    }
+
+}

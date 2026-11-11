@@ -1,0 +1,1058 @@
+openapi: 3.0.3
+
+info:
+  title: API Toilet Training VR
+  version: 0.1.0
+  description: |
+    Kontrak API Aplikasi Toilet Training Berbasis Virtual Reality
+    untuk Anak Berkebutuhan Khusus.
+
+    Alur utama sistem:
+    1. Anak melihat simulasi toilet training melalui video visual.
+    2. Anak mengikuti latihan quiz berbasis game di VR.
+    3. Anak memilih jawaban benar atau salah terhadap langkah yang ditampilkan.
+    4. Sistem memberikan umpan balik dan menghitung hasil latihan.
+    5. Pendamping mendampingi anak saat menggunakan VR.
+    6. Pendamping mengamati kemampuan anak dalam melakukan langkah
+       toilet training di kehidupan nyata (real life).
+    7. Pendamping memberikan laporan perkembangan harian.
+    8. Sistem menyimpan dan menampilkan riwayat latihan serta perkembangan anak.
+
+    Konvensi:
+    - Format data menggunakan JSON.
+    - Waktu menggunakan ISO 8601.
+    - Respons data tunggal dibungkus dengan properti `data`.
+    - Autentikasi menggunakan Bearer Token (JWT).
+    - Peran pengguna: CHILD dan COMPANION.
+    - VR digunakan sebagai media simulasi dan pengujian pemahaman,
+      bukan sebagai pengganti praktik toilet training di dunia nyata.
+    - Sistem tidak menilai tindakan fisik anak di VR.
+    - Kemampuan anak di kehidupan nyata dilaporkan oleh pendamping.
+
+  contact:
+    name: ToiletCare
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Lokal
+  - url: https://staging.example.com/api/v1
+    description: Staging (ganti dengan domain tim)
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Auth
+    description: Autentikasi pengguna
+  - name: Profil Anak
+    description: Data profil anak
+  - name: Materi Toilet Training
+    description: Video simulasi dan tahapan toilet training
+  - name: Quiz VR
+    description: Quiz berbasis game di lingkungan VR
+  - name: Hasil Latihan
+    description: Hasil dan riwayat latihan anak
+  - name: Progress Anak
+    description: Perkembangan anak
+  - name: Report Pendamping
+    description: Laporan harian pendamping berdasarkan pengamatan real life
+
+paths:
+
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login pengguna
+      operationId: login
+      description: Login untuk pendamping atau pengguna yang terdaftar.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AuthToken'
+                required:
+                  - data
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout pengguna
+      operationId: logout
+      responses:
+        '200':
+          description: Logout berhasil
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /auth/me:
+    get:
+      tags:
+        - Auth
+      summary: Mendapatkan profil akun yang sedang login
+      operationId: getCurrentUser
+      responses:
+        '200':
+          description: Berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+                required:
+                  - data
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /children:
+    get:
+      tags:
+        - Profil Anak
+      summary: Mendapatkan daftar anak yang didampingi
+      operationId: listChildren
+      description: |
+        Digunakan oleh pendamping untuk melihat anak yang berada
+        dalam pendampingannya.
+      responses:
+        '200':
+          description: Berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Child'
+                required:
+                  - data
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /children/{childId}:
+    get:
+      tags:
+        - Profil Anak
+      summary: Mendapatkan detail profil anak
+      operationId: getChild
+      parameters:
+        - $ref: '#/components/parameters/ChildId'
+      responses:
+        '200':
+          description: Berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Child'
+                required:
+                  - data
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /training/steps:
+    get:
+      tags:
+        - Materi Toilet Training
+      summary: Mendapatkan daftar tahapan toilet training
+      operationId: listTrainingSteps
+      description: |
+        Mengambil urutan tahapan yang digunakan sebagai materi
+        video simulasi dan quiz.
+      responses:
+        '200':
+          description: Berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrainingStep'
+                required:
+                  - data
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /training/steps/{stepId}:
+    get:
+      tags:
+        - Materi Toilet Training
+      summary: Mendapatkan detail tahapan toilet training
+      operationId: getTrainingStep
+      parameters:
+        - $ref: '#/components/parameters/StepId'
+      responses:
+        '200':
+          description: Berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TrainingStep'
+                required:
+                  - data
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /training/steps/{stepId}/video:
+    get:
+      tags:
+        - Materi Toilet Training
+      summary: Mendapatkan video simulasi suatu tahapan
+      operationId: getTrainingVideo
+      parameters:
+        - $ref: '#/components/parameters/StepId'
+      responses:
+        '200':
+          description: Video simulasi tersedia
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TrainingVideo'
+                required:
+                  - data
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /quiz:
+    get:
+      tags:
+        - Quiz VR
+      summary: Mendapatkan soal quiz latihan VR
+      operationId: getQuiz
+      parameters:
+        - name: child_id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: step_id
+          in: query
+          required: false
+          schema:
+            type: integer
+      description: |
+        Mengambil soal quiz berdasarkan tahapan toilet training.
+        Kunci jawaban tidak dikirim ke aplikasi anak.
+      responses:
+        '200':
+          description: Berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/QuizQuestion'
+                required:
+                  - data
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /quiz/sessions:
+    post:
+      tags:
+        - Quiz VR
+      summary: Memulai sesi latihan quiz VR
+      operationId: startQuizSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartQuizRequest'
+      responses:
+        '201':
+          description: Sesi latihan berhasil dibuat
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/QuizSession'
+                required:
+                  - data
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /quiz/sessions/{sessionId}/answers:
+    post:
+      tags:
+        - Quiz VR
+      summary: Mengirim jawaban quiz benar atau salah
+      operationId: submitQuizAnswer
+      parameters:
+        - $ref: '#/components/parameters/SessionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizAnswerRequest'
+      responses:
+        '200':
+          description: Jawaban berhasil diproses
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/QuizAnswerResult'
+                required:
+                  - data
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /quiz/sessions/{sessionId}/submit:
+    post:
+      tags:
+        - Quiz VR
+      summary: Menyelesaikan sesi quiz
+      operationId: submitQuizSession
+      parameters:
+        - $ref: '#/components/parameters/SessionId'
+      responses:
+        '200':
+          description: Sesi berhasil diselesaikan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TrainingResult'
+                required:
+                  - data
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /children/{childId}/results:
+    get:
+      tags:
+        - Hasil Latihan
+      summary: Melihat riwayat hasil latihan anak
+      operationId: getChildTrainingResults
+      parameters:
+        - $ref: '#/components/parameters/ChildId'
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: Berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrainingResult'
+                required:
+                  - data
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /children/{childId}/progress:
+    get:
+      tags:
+        - Progress Anak
+      summary: Melihat perkembangan anak
+      operationId: getChildProgress
+      parameters:
+        - $ref: '#/components/parameters/ChildId'
+      responses:
+        '200':
+          description: Berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ChildProgress'
+                required:
+                  - data
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /daily-reports:
+    post:
+      tags:
+        - Report Pendamping
+      summary: Membuat laporan perkembangan harian anak
+      operationId: createDailyReport
+      description: |
+        Pendamping mengisi laporan berdasarkan pengamatan anak
+        dalam melakukan tahapan toilet training di kehidupan nyata.
+        Laporan tidak berasal dari sensor atau deteksi otomatis VR.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyReportRequest'
+      responses:
+        '201':
+          description: Laporan berhasil disimpan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DailyReport'
+                required:
+                  - data
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /children/{childId}/daily-reports:
+    get:
+      tags:
+        - Report Pendamping
+      summary: Melihat laporan harian anak
+      operationId: listDailyReports
+      parameters:
+        - $ref: '#/components/parameters/ChildId'
+        - name: date_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: date_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DailyReport'
+                required:
+                  - data
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    ChildId:
+      name: childId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+    StepId:
+      name: stepId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+    SessionId:
+      name: sessionId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  responses:
+    BadRequest:
+      description: Request tidak valid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Unauthorized:
+      description: Token tidak valid atau tidak tersedia
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Forbidden:
+      description: Pengguna tidak memiliki hak akses
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFound:
+      description: Data tidak ditemukan
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Conflict:
+      description: Permintaan bertentangan dengan kondisi data saat ini
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Unprocessable:
+      description: Data tidak dapat diproses
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+
+    ServerError:
+      description: Kesalahan pada server
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: pendamping@example.com
+        password:
+          type: string
+          format: password
+          example: password123
+
+    AuthToken:
+      type: object
+      required:
+        - access_token
+        - token_type
+        - expires_in
+      properties:
+        access_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIs...
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          example: 7200
+
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - role
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Ibu Yani
+        email:
+          type: string
+          format: email
+          example: ibu.yani@example.com
+        role:
+          type: string
+          enum:
+            - CHILD
+            - COMPANION
+          example: COMPANION
+
+    Child:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 12
+        name:
+          type: string
+          example: Budi
+        age:
+          type: integer
+          example: 12
+        notes:
+          type: string
+          nullable: true
+          example: Membutuhkan bantuan pada beberapa tahapan toilet training.
+
+    TrainingStep:
+      type: object
+      required:
+        - id
+        - order
+        - title
+        - description
+      properties:
+        id:
+          type: integer
+          example: 1
+        order:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Mengenali toilet
+        description:
+          type: string
+          example: Mengenali dan memahami fungsi toilet.
+        video_url:
+          type: string
+          format: uri
+          nullable: true
+          example: https://example.com/videos/step-1.mp4
+
+    TrainingVideo:
+      type: object
+      required:
+        - step_id
+        - video_url
+      properties:
+        step_id:
+          type: integer
+          example: 1
+        video_url:
+          type: string
+          format: uri
+          example: https://example.com/videos/step-1.mp4
+        duration_seconds:
+          type: integer
+          example: 60
+
+    QuizQuestion:
+      type: object
+      required:
+        - id
+        - step_id
+        - question
+        - statement
+        - options
+      properties:
+        id:
+          type: integer
+          example: 101
+        step_id:
+          type: integer
+          example: 1
+        question:
+          type: string
+          example: Apakah langkah berikut merupakan langkah yang benar?
+        statement:
+          type: string
+          example: Setelah masuk kamar mandi, anak mendekati toilet.
+        options:
+          type: array
+          items:
+            type: string
+            enum:
+              - benar
+              - salah
+
+    StartQuizRequest:
+      type: object
+      required:
+        - child_id
+      properties:
+        child_id:
+          type: integer
+          example: 12
+
+    QuizSession:
+      type: object
+      required:
+        - id
+        - child_id
+        - status
+        - started_at
+      properties:
+        id:
+          type: integer
+          example: 501
+        child_id:
+          type: integer
+          example: 12
+        status:
+          type: string
+          enum:
+            - IN_PROGRESS
+            - COMPLETED
+        started_at:
+          type: string
+          format: date-time
+          example: 2026-10-08T02:00:00Z
+
+    QuizAnswerRequest:
+      type: object
+      required:
+        - question_id
+        - answer
+      properties:
+        question_id:
+          type: integer
+          example: 101
+        answer:
+          type: string
+          enum:
+            - benar
+            - salah
+
+    QuizAnswerResult:
+      type: object
+      required:
+        - question_id
+        - correct
+        - feedback
+      properties:
+        question_id:
+          type: integer
+          example: 101
+        correct:
+          type: boolean
+          example: true
+        feedback:
+          type: string
+          example: Jawaban benar. Mendekati toilet merupakan langkah berikutnya.
+
+    TrainingResult:
+      type: object
+      required:
+        - session_id
+        - child_id
+        - total_questions
+        - correct_answers
+        - wrong_answers
+        - score
+        - completed_at
+      properties:
+        session_id:
+          type: integer
+          example: 501
+        child_id:
+          type: integer
+          example: 12
+        total_questions:
+          type: integer
+          example: 10
+        correct_answers:
+          type: integer
+          example: 8
+        wrong_answers:
+          type: integer
+          example: 2
+        score:
+          type: number
+          format: float
+          example: 80
+        completed_at:
+          type: string
+          format: date-time
+          example: 2026-10-08T02:15:00Z
+
+    ChildProgress:
+      type: object
+      required:
+        - child_id
+        - steps
+      properties:
+        child_id:
+          type: integer
+          example: 12
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/StepProgress'
+
+    StepProgress:
+      type: object
+      required:
+        - step_id
+        - title
+        - real_life_status
+      properties:
+        step_id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Mengenali toilet
+        quiz_score:
+          type: number
+          format: float
+          nullable: true
+          example: 80
+        real_life_status:
+          type: string
+          enum:
+            - SUDAH_BISA
+            - MASIH_MEMBUTUHKAN_BANTUAN
+            - BELUM_BISA
+            - BELUM_DINILAI
+          example: SUDAH_BISA
+        last_report_date:
+          type: string
+          format: date
+          nullable: true
+          example: 2026-10-08
+
+    DailyReportRequest:
+      type: object
+      required:
+        - child_id
+        - report_date
+        - steps
+      properties:
+        child_id:
+          type: integer
+          example: 12
+        report_date:
+          type: string
+          format: date
+          example: 2026-10-08
+        steps:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DailyStepReport'
+        notes:
+          type: string
+          nullable: true
+          example: Anak dapat melakukan beberapa tahapan dengan sedikit bantuan.
+
+    DailyStepReport:
+      type: object
+      required:
+        - step_id
+        - status
+      properties:
+        step_id:
+          type: integer
+          example: 1
+        status:
+          type: string
+          enum:
+            - SUDAH_BISA
+            - MASIH_MEMBUTUHKAN_BANTUAN
+            - BELUM_BISA
+        notes:
+          type: string
+          nullable: true
+          example: Anak dapat mengenali toilet secara mandiri.
+
+    DailyReport:
+      type: object
+      required:
+        - id
+        - child_id
+        - companion_id
+        - report_date
+        - steps
+      properties:
+        id:
+          type: integer
+          example: 1001
+        child_id:
+          type: integer
+          example: 12
+        companion_id:
+          type: integer
+          example: 1
+        report_date:
+          type: string
+          format: date
+          example: 2026-10-08
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/DailyStepReport'
+        notes:
+          type: string
+          nullable: true
+          example: Perkembangan anak menunjukkan peningkatan pada beberapa tahapan.
+
+    Message:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: Operasi berhasil.
+
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: Terjadi kesalahan.
+
+    ValidationError:
+      type: object
+      required:
+        - message
+        - errors
+      properties:
+        message:
+          type: string
+          example: Data tidak valid.
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            child_id:
+              - child_id wajib diisi.

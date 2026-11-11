@@ -1,0 +1,33 @@
+{
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.24.6"
+  },
+  "name": "toiletcare",
+  "version": "1.0.0",
+  "description": "Aplikasi pendamping toilet training dengan register, login, dan tampilan responsif.",
+  "main": "server.js",
+  "scripts": {
+    "test": "node --test tests/auth.test.js",
+    "local:start": "pwsh -NoProfile -File scripts/start-local.ps1",
+    "local:stop": "pwsh -NoProfile -File scripts/stop-local.ps1",
+    "db:setup": "node scripts/setup-db.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dirgasatyadev/ToiletCare.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dirgasatyadev/ToiletCare/issues"
+  },
+  "homepage": "https://github.com/dirgasatyadev/ToiletCare#readme"
+}

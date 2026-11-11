@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#155e70" />
+    <title>Masuk — ToiletCare</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="login.js" defer></script>
+  </head>
+  <body class="login-body">
+    <main class="login-layout">
+      <section class="login-story" aria-labelledby="welcome-title">
+        <a class="brand" href="index.html"
+          ><span class="brand-mark" aria-hidden="true">✦</span> ToiletCare
+          <span class="brand-tag">VR</span></a
+        >
+        <div class="story-copy">
+          <p class="eyebrow">LANGKAH KECIL, KEMAJUAN BERARTI</p>
+          <h1 id="welcome-title">Temani langkah <br />mandiri si kecil.</h1>
+          <p>
+            Ruang pendampingan toilet training yang nyaman untuk anak dan orang
+            tua.
+          </p>
+          <img
+            class="login-illustration"
+            src="images/logo-1.png"
+            alt="Ilustrasi toilet training untuk anak"
+          />
+          <div class="story-note">
+            <span aria-hidden="true">♡</span> Tumbuh bersama, satu tahap setiap
+            hari.
+          </div>
+        </div>
+        <p class="story-footer">ToiletCare · Pendamping tumbuh mandiri</p>
+      </section>
+      <section class="login-panel" aria-labelledby="login-title">
+        <div class="login-form-wrap">
+          <span class="section-kicker">SELAMAT DATANG KEMBALI</span>
+          <h2 id="login-title">Masuk ke akun Anda</h2>
+          <p class="muted">Lanjutkan pendampingan si kecil hari ini.</p>
+          <form id="loginForm" class="auth-form">
+            <div class="form-group">
+              <label for="loginEmail">Email</label>
+              <input
+                type="email"
+                id="loginEmail"
+                name="email"
+                placeholder="nama@email.com"
+                autocomplete="username"
+                maxlength="254"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Kata sandi</label>
+              <div class="password-field">
+                <input
+                  type="password"
+                  id="loginPassword"
+                  name="password"
+                  placeholder="Masukkan kata sandi"
+                  autocomplete="current-password"
+                  required
+                />
+                <button
+                  id="togglePassword"
+                  class="password-toggle"
+                  type="button"
+                  aria-controls="loginPassword"
+                  aria-label="Tampilkan kata sandi"
+                  aria-pressed="false"
+                >
+                  Lihat
+                </button>
+              </div>
+            </div>
+            <p
+              id="loginMessage"
+              class="form-message"
+              role="alert"
+              tabindex="-1"
+              hidden
+            ></p>
+            <button id="loginButton" type="submit" class="main-button">
+              Masuk <span aria-hidden="true">→</span>
+            </button>
+          </form>
+          <p class="login-help">
+            Belum punya akun? <a href="signup.html">Daftar sekarang</a>
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

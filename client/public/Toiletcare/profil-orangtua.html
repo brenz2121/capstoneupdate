@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="id" data-auth="required">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil Orang Tua - Toilet Training VR</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="session.js" defer></script>
+  </head>
+
+  <body>
+    <main class="profile-container">
+      <!-- Header Profil -->
+      <header class="profile-header">
+        <a href="pilih-peran.html" class="back-button"> &#8592; </a>
+
+        <h1>Profil</h1>
+      </header>
+
+      <!-- FOTO PROFIL ORANG TUA -->
+      <section class="profile-photo">
+        <img
+          src="images/ikon-ibu.jpg"
+          alt="Ilustrasi profil"
+          class="parent-avatar"
+        />
+
+        <label for="photo-upload" class="camera-button"> &#128247; </label>
+
+        <input type="file" id="photo-upload" name="photo" accept="image/*" />
+      </section>
+
+      <!-- Judul Data -->
+      <section class="profile-title">
+        <h2>Data Orang Tua</h2>
+      </section>
+
+      <!-- Form Data Orang Tua -->
+      <form action="#" method="POST" class="profile-form">
+        <!-- Nama -->
+        <div class="form-group">
+          <label for="nama"> Nama </label>
+
+          <input
+            type="text"
+            id="nama"
+            name="nama"
+            placeholder="Masukan nama OrangTua"
+            required
+          />
+        </div>
+
+        <!-- Hubungan dengan Anak -->
+        <div class="form-group">
+          <label for="hubungan"> Hubungan Dengan Anak </label>
+
+          <select id="hubungan" name="hubungan" required>
+            <option value="" disabled selected>Pilih hubungan</option>
+
+            <option value="ayah">Ayah</option>
+
+            <option value="ibu">Ibu</option>
+
+            <option value="wali">Wali</option>
+          </select>
+        </div>
+
+        <!-- Tombol Simpan -->
+        <button type="submit" class="save-button">Simpan</button>
+      </form>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,384 @@
+
+/* =========================================
+   1. RESET DAN PENGATURAN DASAR
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+    background: #e8eeee;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+/* =========================================
+   2. KOTAK UTAMA HALAMAN
+========================================= */
+
+.progress-page {
+    width: 100%;
+    max-width: 525px;
+    min-height: calc(100vh - 40px);
+    margin: 0 auto;
+    padding: 20px 24px 35px;
+
+    background-color: #f3f7f7;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 15px rgba(0, 0, 0, 0.12),
+        0 8px 25px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* =========================================
+   3. HEADER
+========================================= */
+
+.inner-header {
+    width: 100%;
+}
+
+.top-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    margin-bottom: 22px;
+}
+
+.top-header h2 {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.back-button {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-decoration: none;
+    color: #111;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* =========================================
+   4. PROFIL ANAK
+========================================= */
+
+.child-profile {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin: 0 0 10px 28px;
+}
+
+.avatar {
+    width: 81px;
+    height: 81px;
+    min-width: 81px;
+    border-radius: 50%;
+
+    background: #c6e8f5;
+    border: 2px solid #239bd8;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 48px;
+    overflow: hidden;
+}
+
+.child-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.child-info strong {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.child-info small {
+    color: #888;
+    font-size: 12px;
+}
+
+/* =========================================
+   5. LINGKARAN PROGRESS 60%
+========================================= */
+
+.progress-ring {
+    width: 94px;
+    height: 94px;
+
+    border-radius: 50%;
+
+    margin: 10px auto;
+
+    background: conic-gradient(
+        #f4d842 0deg 216deg,
+        #dcdcdc 216deg 360deg
+    );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+.progress-ring::before {
+    content: "";
+    position: absolute;
+
+    width: 78px;
+    height: 78px;
+
+    background: #f3f7f7;
+    border-radius: 50%;
+}
+
+.progress-ring span {
+    position: relative;
+    z-index: 1;
+
+    font-size: 30px;
+    font-weight: bold;
+    color: #cbb93e;
+}
+
+/* =========================================
+   6. JUDUL TAHAP KESELURUHAN
+========================================= */
+
+.progress-summary {
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+
+    margin: 9px 0 10px;
+}
+
+/* =========================================
+   7. CARD DETAIL TAHAPAN
+========================================= */
+
+.task-list {
+    width: 100%;
+
+    background: #ffffff;
+
+    border-radius: 11px;
+
+    padding: 0 11px 9px;
+
+    box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.25);
+
+    border: 1px solid #e4e4e4;
+}
+
+.task-list h3 {
+    font-size: 16px;
+    font-weight: 700;
+
+    padding: 3px 0 6px;
+
+    border-bottom: 1px solid #dedede;
+}
+
+/* =========================================
+   8. ITEM TAHAPAN
+========================================= */
+
+.task-item {
+    display: flex;
+    align-items: center;
+
+    min-height: 28.5px;
+
+    border-bottom: 1px solid #dedede;
+
+    text-decoration: none;
+    color: #111;
+
+    gap: 5px;
+    position: relative;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+/* =========================================
+   9. STATUS TAHAPAN
+========================================= */
+
+.task-status {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+
+    border-radius: 50%;
+    border: 3px solid #929292;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Tahapan selesai */
+.task-status.done {
+    background: #087b38;
+    border: 2px solid #087b38;
+}
+
+/* Tahapan dalam latihan */
+.task-status.learning {
+    border: 3px solid #786600;
+    background: transparent;
+}
+
+/* =========================================
+   10. TEKS TAHAPAN
+========================================= */
+
+.task-text {
+    display: flex;
+    flex-direction: column;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 14px;
+}
+
+.task-text small {
+    font-size: 10px;
+    font-weight: 400;
+
+    color: #777;
+    line-height: 11px;
+}
+
+/* =========================================
+   11. TANDA PANAH
+========================================= */
+
+.task-arrow {
+    margin-left: auto;
+
+    font-size: 19px;
+    color: #999;
+
+    opacity: 0;
+}
+
+/* =========================================
+   12. EFEK SAAT ITEM DIKLIK
+========================================= */
+
+.task-item:active {
+    background: #f1f8fa;
+}
+
+/* =========================================
+   13. RESPONSIVE DESKTOP DAN TABLET
+========================================= */
+
+@media (min-width: 600px) {
+
+    body {
+        padding: 25px 0;
+    }
+
+    .progress-page {
+        max-width: 525px;
+        min-height: calc(100vh - 50px);
+        padding: 30px 25px;
+    }
+}
+
+/* =========================================
+   14. RESPONSIVE HP
+========================================= */
+
+@media (max-width: 599px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .progress-page {
+        width: 100%;
+        max-width: 100%;
+
+        min-height: calc(100vh - 20px);
+
+        padding: 20px 20px 35px;
+
+        border-radius: 18px;
+    }
+
+    .task-list {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .task-text {
+        font-size: 11.5px;
+    }
+}
+
+/* =========================================
+   15. LAYAR HP PENDEK
+========================================= */
+
+@media (max-height: 750px) {
+
+    .top-header {
+        margin-bottom: 12px;
+    }
+
+    .avatar {
+        width: 72px;
+        height: 72px;
+        min-width: 72px;
+    }
+
+    .progress-ring {
+        width: 85px;
+        height: 85px;
+    }
+
+    .progress-ring::before {
+        width: 71px;
+        height: 71px;
+    }
+
+    .progress-ring span {
+        font-size: 27px;
+    }
+
+    .task-item {
+        min-height: 27px;
+    }
+}

@@ -1,0 +1,392 @@
+
+/* =========================================
+   1. RESET DAN DASAR
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body:has(.profile-page) {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0;
+
+    background: #e8eeee;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* =========================================
+   2. KOTAK UTAMA HALAMAN
+========================================= */
+
+.profile-page {
+    width: 100%;
+    max-width: 390px;
+    min-height: calc(100vh - 40px);
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    padding: 20px 24px 35px;
+
+    background: #f3f7f7;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 15px rgba(0, 0, 0, 0.12),
+        0 8px 25px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid rgba(0, 0, 0, 0.04);
+
+    flex-shrink: 0;
+}
+
+/* =========================================
+   3. HEADER PROFIL
+========================================= */
+
+.profile-header {
+    position: relative;
+
+    width: 100%;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 13px;
+}
+
+.profile-header h2 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #111;
+}
+
+.profile-header .back-button {
+    position: absolute;
+
+    left: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    text-decoration: none;
+    color: #111;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* =========================================
+   4. POSISI FOTO PROFIL
+========================================= */
+.profile-photo {
+    width: 100%;
+    height: 150px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    margin: 10px auto 18px;
+}
+
+/* =========================================
+   6. LINGKARAN FOTO
+========================================= */
+
+.parent-avatar {
+    width: 150px;
+    height: 150px;
+
+    display: block;
+
+    border-radius: 50%;
+    border: 4px solid #3897bd;
+
+    background-color: #b9e4f6;
+
+    object-fit: cover;
+    object-position: center;
+
+    overflow: hidden;
+}
+
+/* =========================================
+   7. FOTO KOSONG JIKA BELUM DIUNGGAH
+========================================= */
+
+.parent-avatar[src=""],
+.parent-avatar:not([src]) {
+    background: #b9e4f6;
+}
+
+/* =========================================
+   8. TOMBOL KAMERA
+========================================= */
+
+.camera-button {
+    position: absolute;
+
+    width: 56px;
+    height: 56px;
+
+    left: calc(50% + 48px);
+    bottom: 0;
+
+    border: 3px solid #f3f7f7;
+    border-radius: 50%;
+
+    background: #168fc4;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 22px;
+
+    cursor: pointer;
+    z-index: 5;
+}
+
+/* Efek hover kamera */
+
+.camera-button:hover {
+    background: #087daf;
+}
+
+/* Input foto disembunyikan */
+
+#photo-upload {
+    display: none;
+}
+/* =========================================
+   9. BAGIAN FORM DATA ANAK
+========================================= */
+
+.profile-form-section {
+    width: 100%;
+    max-width: 350px;
+
+    padding: 0 22px;
+
+    margin: 0 auto;
+}
+
+.profile-form-section h3 {
+    text-align: center;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    color: #164a61;
+
+    margin-bottom: 14px;
+}
+
+/* =========================================
+   10. FORM GROUP
+========================================= */
+
+.form-group {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 20px;
+}
+
+/* Label */
+
+.form-group label {
+    font-size: 16px;
+    font-weight: 700;
+
+    color: #176181;
+
+    margin: 0 0 10px 6px;
+}
+
+/* =========================================
+   11. INPUT DAN SELECT
+========================================= */
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 55px;
+
+    padding: 0 20px;
+
+    border: 1px solid #a8c6d4;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: #333;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+/* Placeholder */
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+/* Ketika input diklik */
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #168fc4;
+
+    box-shadow:
+        0 0 0 3px rgba(22, 143, 196, 0.10);
+}
+
+/* =========================================
+   12. TOMBOL SIMPAN
+========================================= */
+
+.save-button {
+    width: 100%;
+    height: 44px;
+
+    margin-top: 21px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: #176183;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.save-button:hover {
+    background: #104d6b;
+}
+
+.save-button:active {
+    transform: scale(0.98);
+}
+
+/* =========================================
+   13. RESPONSIVE DESKTOP
+========================================= */
+
+@media (min-width: 600px) {
+
+    body:has(.profile-page) {
+        padding: 25px 0;
+    }
+
+    .profile-page {
+        width: 100%;
+        max-width: 525px;
+
+        min-height: calc(100vh - 50px);
+
+        padding: 25px 35px 40px;
+    }
+
+    .profile-form-section {
+        max-width: 400px;
+        padding: 0 22px;
+    }
+
+}
+
+/* =========================================
+   14. RESPONSIVE HP
+========================================= */
+
+@media (max-width: 599px) {
+
+    body:has(.profile-page) {
+        padding: 10px;
+    }
+
+    .profile-page {
+        width: 100%;
+        max-width: 100%;
+
+        min-height: calc(100vh - 20px);
+
+        padding: 20px 18px 35px;
+
+        border-radius: 18px;
+    }
+
+    .profile-form-section {
+        padding: 0 15px;
+    }
+
+}
+
+/* =========================================
+   15. HP DENGAN LAYAR PENDEK
+========================================= */
+
+@media (max-height: 700px) {
+
+    .profile-header {
+        margin-bottom: 10px;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+        flex-basis: 100px;
+    }
+
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-image img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 14px;
+    }
+
+    .form-group input,
+    .form-group select {
+        height: 48px;
+    }
+
+    .save-button {
+        margin-top: 12px;
+    }
+
+}

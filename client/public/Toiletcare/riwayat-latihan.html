@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="id" data-auth="required">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Riwayat Latihan</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="session.js" defer></script>
+  </head>
+
+  <body>
+    <main class="page history-page">
+      <header class="inner-header">
+        <a href="dashboard.html" aria-label="Kembali ke beranda">←</a>
+        <h2>Riwayat Latihan</h2>
+      </header>
+
+      <!-- PEMILIH TANGGAL / KALENDER -->
+      <div class="history-calendar-wrap">
+        <button
+          type="button"
+          class="date-selector"
+          id="dateSelector"
+          aria-expanded="false"
+        >
+          <span class="date-icon">▣</span>
+          <span class="date-month" id="dateLabel">September 2026</span>
+          <span class="date-arrow">⌄</span>
+        </button>
+
+        <div class="calendar-dropdown" id="calendarDropdown">
+          <div class="calendar-header">
+            <button
+              type="button"
+              class="calendar-nav"
+              id="prevMonth"
+              aria-label="Bulan sebelumnya"
+            >
+              ‹
+            </button>
+
+            <strong id="calendarMonth">September 2026</strong>
+
+            <button
+              type="button"
+              class="calendar-nav"
+              id="nextMonth"
+              aria-label="Bulan berikutnya"
+            >
+              ›
+            </button>
+          </div>
+
+          <div class="calendar-weekdays">
+            <span>Sen</span>
+            <span>Sel</span>
+            <span>Rab</span>
+            <span>Kam</span>
+            <span>Jum</span>
+            <span>Sab</span>
+            <span>Min</span>
+          </div>
+
+          <div class="calendar-days" id="calendarDays"></div>
+        </div>
+      </div>
+
+      <!-- RIWAYAT 1 -->
+      <div class="history-item">
+        <div class="history-date">
+          <strong>24 September 2026</strong>
+          <small>8 dari 10 tahapan</small>
+        </div>
+
+        <div class="history-percent green" style="--progress: 85%">85%</div>
+      </div>
+
+      <!-- RIWAYAT 2 -->
+      <div class="history-item">
+        <div class="history-date">
+          <strong>20 September 2026</strong>
+          <small>6 dari 10 tahapan</small>
+        </div>
+
+        <div class="history-percent yellow" style="--progress: 60%">60%</div>
+      </div>
+
+      <!-- RIWAYAT 3 -->
+      <div class="history-item">
+        <div class="history-date">
+          <strong>16 September 2026</strong>
+          <small>4 dari 10 tahapan</small>
+        </div>
+
+        <div class="history-percent red" style="--progress: 40%">40%</div>
+      </div>
+
+      <!-- RIWAYAT 4 -->
+      <div class="history-item">
+        <div class="history-date">
+          <strong>12 September 2026</strong>
+          <small>3 dari 10 tahapan</small>
+        </div>
+
+        <div class="history-percent red" style="--progress: 30%">30%</div>
+      </div>
+
+      <!-- RIWAYAT 5 -->
+      <div class="history-item">
+        <div class="history-date">
+          <strong>8 September 2026</strong>
+          <small>1 dari 10 tahapan</small>
+        </div>
+
+        <div class="history-percent red" style="--progress: 10%">10%</div>
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        var bulan = [
+          "Januari",
+          "Februari",
+          "Maret",
+          "April",
+          "Mei",
+          "Juni",
+          "Juli",
+          "Agustus",
+          "September",
+          "Oktober",
+          "November",
+          "Desember",
+        ];
+
+        var selector = document.getElementById("dateSelector");
+        var dropdown = document.getElementById("calendarDropdown");
+        var dateLabel = document.getElementById("dateLabel");
+        var monthLabel = document.getElementById("calendarMonth");
+        var daysEl = document.getElementById("calendarDays");
+        var prevBtn = document.getElementById("prevMonth");
+        var nextBtn = document.getElementById("nextMonth");
+
+        // Tanggal yang punya riwayat latihan (tahun-bulan(0-11)-hari)
+        var riwayat = [
+          "2026-8-24",
+          "2026-8-20",
+          "2026-8-16",
+          "2026-8-12",
+          "2026-8-8",
+        ];
+
+        var tahun = 2026;
+        var bln = 8; // September
+
+        function render() {
+          monthLabel.textContent = bulan[bln] + " " + tahun;
+          dateLabel.textContent = bulan[bln] + " " + tahun;
+          daysEl.innerHTML = "";
+
+          // Minggu dimulai hari Senin
+          var first = new Date(tahun, bln, 1).getDay();
+          var offset = (first + 6) % 7;
+          var total = new Date(tahun, bln + 1, 0).getDate();
+
+          for (var i = 0; i < offset; i++) {
+            daysEl.appendChild(document.createElement("span"));
+          }
+
+          for (var d = 1; d <= total; d++) {
+            var el = document.createElement("span");
+            el.className = "calendar-day";
+            el.textContent = d;
+            if (riwayat.indexOf(tahun + "-" + bln + "-" + d) !== -1) {
+              el.classList.add("has-history");
+            }
+            daysEl.appendChild(el);
+          }
+        }
+
+        selector.addEventListener("click", function () {
+          var open = dropdown.classList.toggle("open");
+          selector.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+
+        prevBtn.addEventListener("click", function () {
+          bln--;
+          if (bln < 0) {
+            bln = 11;
+            tahun--;
+          }
+          render();
+        });
+
+        nextBtn.addEventListener("click", function () {
+          bln++;
+          if (bln > 11) {
+            bln = 0;
+            tahun++;
+          }
+          render();
+        });
+
+        document.addEventListener("click", function (e) {
+          if (!e.target.closest(".history-calendar-wrap")) {
+            dropdown.classList.remove("open");
+            selector.setAttribute("aria-expanded", "false");
+          }
+        });
+
+        render();
+      })();
+    </script>
+  </body>
+</html>

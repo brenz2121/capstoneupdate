@@ -1,0 +1,377 @@
+
+/* =========================================
+   1. RESET CSS
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================================
+   2. BACKGROUND BODY
+========================================= */
+
+html {
+    min-height: 100%;
+    background: #e8eeee;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    background: #e8eeee;
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* =========================================
+   3. KOTAK UTAMA HALAMAN
+========================================= */
+
+.welcome-container {
+    position: relative;
+
+    width: 100%;
+    max-width: 390px;
+
+    min-height: 100vh;
+
+    margin: 0 auto;
+
+    padding: 20px 24px 35px;
+
+    background: #f3f7f7;
+
+    border-radius: 0;
+
+    box-shadow:
+        0 0 15px rgba(0, 0, 0, 0.10),
+        0 8px 25px rgba(0, 0, 0, 0.06);
+
+    flex-shrink: 0;
+}
+
+/* =========================================
+   4. LABEL PILIH PERAN
+========================================= */
+
+.page-label {
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #999;
+
+    margin-bottom: 15px;
+}
+
+/* =========================================
+   5. ILUSTRASI UTAMA
+========================================= */
+
+.welcome-illustration {
+    width: 100%;
+
+    height: 245px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 15px auto 5px;
+}
+
+.welcome-illustration img {
+    width: 100%;
+    max-width: 310px;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+    object-position: center;
+}
+
+/* =========================================
+   6. JUDUL SELAMAT DATANG
+========================================= */
+
+.welcome-heading {
+    width: 100%;
+
+    text-align: center;
+
+    margin: 5px auto 45px;
+}
+
+.welcome-heading h1 {
+    font-size: 25px;
+    font-weight: 700;
+
+    color: #111;
+
+    margin-bottom: 7px;
+}
+
+.welcome-heading p {
+    font-size: 16px;
+    font-weight: 600;
+
+    color: #999;
+}
+
+/* =========================================
+   7. BAGIAN PILIHAN PERAN
+========================================= */
+
+.role-section {
+    width: 100%;
+}
+
+.role-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+
+    color: #888;
+
+    margin-bottom: 8px;
+}
+
+/* =========================================
+   8. KARTU PILIHAN PERAN
+========================================= */
+
+.role-card {
+    position: relative;
+
+    width: 100%;
+    min-height: 88px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 10px 12px;
+
+    margin-bottom: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #39a1d1;
+    border-radius: 11px;
+
+    box-shadow:
+        0 3px 5px rgba(0, 0, 0, 0.15);
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+/* Efek saat kartu disentuh */
+
+.role-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.role-card:active {
+    transform: scale(0.98);
+}
+
+/* =========================================
+   9. FOTO PADA KARTU
+========================================= */
+
+.role-card img {
+    width: 66px;
+    height: 66px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    border: 2px solid #3897bd;
+
+    background: #b9e4f6;
+
+    object-fit: cover;
+    object-position: center;
+
+    margin-right: 12px;
+}
+
+/* =========================================
+   10. DESKRIPSI PERAN
+========================================= */
+
+.role-description {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.role-description h2 {
+    font-size: 18px;
+    font-weight: 700;
+
+    color: #176183;
+
+    margin-bottom: 2px;
+}
+
+.role-description p {
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.3;
+
+    color: #999;
+
+    max-width: 155px;
+}
+
+/* =========================================
+   11. TANDA PANAH
+========================================= */
+
+.arrow {
+    font-size: 29px;
+    font-weight: 600;
+
+    color: #222;
+
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+/* =========================================
+   12. RESPONSIVE DESKTOP
+========================================= */
+
+@media (min-width: 600px) {
+
+    body {
+        padding: 20px 0;
+    }
+
+    .welcome-container {
+        max-width: 390px;
+
+        min-height: calc(100vh - 40px);
+
+        border-radius: 20px;
+    }
+
+}
+
+/* =========================================
+   13. RESPONSIVE HP
+========================================= */
+
+@media (max-width: 599px) {
+
+    body {
+        padding: 0;
+    }
+
+    .welcome-container {
+        width: 100%;
+        max-width: 100%;
+
+        min-height: 100vh;
+
+        padding: 20px 24px 35px;
+
+        border-radius: 0;
+    }
+
+}
+
+/* =========================================
+   14. LAYAR HP PENDEK
+========================================= */
+
+@media (max-height: 750px) {
+
+    .welcome-container {
+        padding-top: 15px;
+    }
+
+    .welcome-illustration {
+        height: 220px;
+
+        margin-top: 10px;
+    }
+
+    .welcome-heading {
+        margin-bottom: 30px;
+    }
+
+    .role-card {
+        min-height: 82px;
+
+        margin-bottom: 14px;
+    }
+
+    .role-card img {
+        width: 62px;
+        height: 62px;
+    }
+
+}
+
+/* =========================================
+   15. LAYAR SANGAT KECIL
+========================================= */
+
+@media (max-width: 360px) {
+
+    .welcome-container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .welcome-illustration {
+        height: 200px;
+    }
+
+    .welcome-heading h1 {
+        font-size: 23px;
+    }
+
+    .role-card img {
+        width: 58px;
+        height: 58px;
+    }
+
+    .role-description h2 {
+        font-size: 16px;
+    }
+
+    .role-description p {
+        font-size: 10px;
+    }
+
+}
